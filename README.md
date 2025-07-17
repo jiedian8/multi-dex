@@ -5,6 +5,11 @@
 项目开发唯一联系方式：电报@breekarnes 
 项目开发唯一联系方式：电报@breekarnes 
 
+
+## 项目背景
+该项目核心文件已经删除，防止别有用心之人盗取劳动成功。
+本团队承接各种网站、应用开发，二次开发、服务器维护、有需要的请用电报联系。看到会回复
+
 MultiDEX 是一个多语言去中心化交易所，具有以下核心功能：
 多语言用户界面（支持6种语言）
 多链资产支持（Ethereum, BSC, Polygon, Solana）
@@ -12,8 +17,6 @@ MultiDEX 是一个多语言去中心化交易所，具有以下核心功能：
 流动性池管理
 跨链原子交换
 管理员后台监控系统
-## 项目背景
-MultiDEX 是一个多语言去中心化交易所，支持多链资产交易、流动性提供和跨链交换。项目已完成前端界面、管理后台和基础后端开发，目前需要完成区块链集成和安全增强。
 <img width="1501" height="994" alt="QQ_1752778734518" src="https://github.com/user-attachments/assets/f5aab4d2-07d7-4340-9ac6-758ae1165df9" />
 <img width="1514" height="945" alt="QQ_1752778762001" src="https://github.com/user-attachments/assets/69a44c71-3186-4697-b20e-2d456652c1ea" />
 <img width="1475" height="868" alt="QQ_1752778780065" src="https://github.com/user-attachments/assets/cfa439dd-d064-4739-ad72-a55f2d56a32b" />
