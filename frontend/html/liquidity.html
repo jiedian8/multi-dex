@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MultiDEX - Liquidity Mining</title>
+  <link rel="stylesheet" href="/css/liquidity.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Liquidity Mining</h1>
+      <nav>
+        <a href="/">Swap</a>
+        <a href="/liquidity" class="active">Liquidity</a>
+        <a href="/dashboard">Dashboard</a>
+      </nav>
+      <div class="wallet-info" id="walletInfo"></div>
+    </header>
+
+    <main class="liquidity-container">
+      <section class="liquidity-stats">
+        <div class="stat-card">
+          <h3>Total Liquidity</h3>
+          <p id="totalLiquidity">$0</p>
+        </div>
+        <div class="stat-card">
+          <h3>Your Liquidity</h3>
+          <p id="userLiquidity">$0</p>
+        </div>
+        <div class="stat-card">
+          <h3>Staked LP Tokens</h3>
+          <p id="userStaked">0</p>
+        </div>
+        <div class="stat-card">
+          <h3>Your Rewards</h3>
+          <p id="rewards">0 MDX</p>
+          <button id="claimRewardsBtn" class="btn">Claim Rewards</button>
+        </div>
+      </section>
+
+      <section class="liquidity-actions">
+        <div class="card">
+          <h2>Add Liquidity</h2>
+          <div class="input-group">
+            <label>Token A</label>
+            <select id="tokenA">
+              <option value="0x...">USDT</option>
+              <option value="0x...">ETH</option>
+              <option value="0x...">BNB</option>
+            </select>
+            <input type="number" id="amountA" placeholder="0.0">
+          </div>
+          <div class="input-group">
+            <label>Token B</label>
+            <select id="tokenB">
+              <option value="0x...">MDX</option>
+              <option value="0x...">USDC</option>
+              <option value="0x...">DAI</option>
+            </select>
+            <input type="number" id="amountB" placeholder="0.0">
+          </div>
+          <button id="addLiquidityBtn" class="btn-primary">Add Liquidity</button>
+        </div>
+
+        <div class="card">
+          <h2>Stake LP Tokens</h2>
+          <div class="input-group">
+            <label>LP Token Amount</label>
+            <input type="number" id="stakeAmount" placeholder="0.0">
+          </div>
+          <button id="stakeBtn" class="btn-primary">Stake</button>
+          <button id="unstakeBtn" class="btn">Unstake</button>
+        </div>
+      </section>
+
+      <section class="liquidity-pools">
+        <h2>Available Pools</h2>
+        <div class="pools-list" id="poolsList">
+          <!-- Pool cards will be dynamically generated -->
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>MultiDEX v0.7.0 © 2023</p>
+    </footer>
+  </div>
+
+  <script type="module" src="/js/liquidity.js"></script>
+</body>
+</html>

@@ -1,127 +1,77 @@
-// 管理员仪表盘初始化
-function initAdminDashboard() {
-    // TVL 图表
-    const tvlCtx = document.getElementById('tvlChart').getContext('2d');
-    const tvlChart = new Chart(tvlCtx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Ethereum', 'BSC', 'Polygon', 'Solana', 'Avalanche'],
-            datasets: [{
-                data: [45, 25, 15, 10, 5],
-                backgroundColor: [
-                    '#627eea', // Ethereum
-                    '#f0b90b', // BSC
-                    '#8247e5', // Polygon
-                    '#00f2fe', // Solana
-                    '#e84142'  // Avalanche
-                ]
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'right',
-                }
-            }
-        }
-    });
+import { fetchAdminData } from './api.js';
+
+// 初始化管理面板
+export function initAdminPanel() {
+    loadDashboardData();
+    setupEventListeners();
+}
+
+// 加载仪表盘数据
+async function loadDashboardData() {
+    try {
+        const data = await fetchAdminData('/admin/dashboard');
+        renderDashboard(data);
+    } catch (error) {
+        console.error('仪表盘数据加载失败:', error);
+    }
+}
+
+// 渲染仪表盘
+function renderDashboard(data) {
+    document.getElementById('total-users').textContent = data.totalUsers;
+    document.getElementById('daily-trades').textContent = data.dailyTrades;
+    document.getElementById('total-liquidity').textContent = `$${data.totalLiquidity.toLocaleString()}`;
     
-    // 交易量图表
-    const volumeCtx = document.getElementById('volumeChart').getContext('2d');
-    const volumeChart = new Chart(volumeCtx, {
+    // 渲染交易图表
+    renderTradeChart(data.tradeChart);
+}
+
+// 渲染交易图表
+function renderTradeChart(chartData) {
+    const ctx = document.getElementById('trade-chart').getContext('2d');
+    new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            labels: chartData.labels,
             datasets: [{
-                label: 'Trading Volume (in millions)',
-                data: [12, 19, 15, 24, 18, 22, 30],
-                backgroundColor: 'rgba(41, 98, 255, 0.1)',
-                borderColor: '#2962ff',
-                borderWidth: 2,
-                tension: 0.3,
-                fill: true
+                label: '每日交易量',
+                data: chartData.values,
+                borderColor: '#4e73df',
+                backgroundColor: 'rgba(78, 115, 223, 0.05)'
             }]
         },
         options: {
-            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 y: {
-                    beginAtZero: true,
-                    grid: {
-                        drawBorder: false
-                    }
-                },
-                x: {
-                    grid: {
-                        display: false
-                    }
-                }
-            }
-        }
-    });
-    
-    // 流动性池图表
-    const poolCtx = document.getElementById('poolChart').getContext('2d');
-    const poolChart = new Chart(poolCtx, {
-        type: 'bar',
-        data: {
-            labels: ['ETH/USDT', 'BTC/ETH', 'BNB/USDT', 'SOL/USDC', 'MATIC/USDT'],
-            datasets: [{
-                label: 'Liquidity (in millions)',
-                data: [42.8, 36.4, 28.3, 15.7, 12.6],
-                backgroundColor: '#2962ff',
-                borderRadius: 5
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: {
-                        drawBorder: false
-                    }
-                },
-                x: {
-                    grid: {
-                        display: false
-                    }
+                    beginAtZero: true
                 }
             }
         }
     });
 }
 
-// 页面加载完成后初始化
-$(document).ready(function() {
-    initAdminDashboard();
+// 设置事件监听器
+function setupEventListeners() {
+    // 用户管理标签页
+    document.getElementById('users-tab').addEventListener('click', loadUsers);
     
-    // 侧边栏菜单点击
-    $('.admin-menu a').click(function(e) {
-        e.preventDefault();
-        
-        // 更新活动菜单项
-        $('.admin-menu li').removeClass('active');
-        $(this).parent().addClass('active');
-        
-        // 显示对应页面
-        const target = $(this).attr('href');
-        $('.admin-page').removeClass('active');
-        $(target + 'Page').addClass('active');
-    });
+    // 交易管理标签页
+    document.getElementById('transactions-tab').addEventListener('click', loadTransactions);
     
-    // 添加代币按钮
-    $('#addTokenBtn').click(function() {
-        // 显示添加代币模态框
-        // 实际应用中应打开模态框
-        alert('Add Token functionality would open a modal here');
-    });
-    
-    // 登出按钮
-    $('.logout-btn').click(function() {
-        // 清除管理员会话
-        localStorage.removeItem('adminToken');
-        window.location.href = '../frontend/index.html';
-    });
-});
+    // 代币管理标签页
+    document.getElementById('tokens-tab').addEventListener('click', loadTokens);
+}
+
+// 加载用户数据
+async function loadUsers() {
+    try {
+        const users = await fetchAdminData('/admin/users');
+        renderUserTable(users);
+    } catch (error) {
+        console.error('用户数据加载失败:', error);
+    }
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', initAdminPanel);

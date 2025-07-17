@@ -20,7 +20,7 @@ class MarketService {
             });
             return response.data[tokenId]?.usd || null;
         } catch (error) {
-            console.error('CoinGecko API error:', error.response?.data || error.message);
+            console.error('CoinGecko API 错误:', error.response?.data || error.message);
             return null;
         }
     }
@@ -33,31 +33,29 @@ class MarketService {
                 if (price !== null && price !== token.priceUSD) {
                     token.priceUSD = price;
                     await token.save();
-                    console.log(`Updated ${token.symbol} price: $${price}`);
+                    console.log(`更新 ${token.symbol} 价格: $${price}`);
                 }
             });
             
             await Promise.all(updatePromises);
             return { updated: updatePromises.length };
         } catch (error) {
-            console.error('Price update failed:', error);
+            console.error('价格更新失败:', error);
             throw error;
         }
     }
 }
 
 // 初始化服务
-if (process.env.COINGECKO_API_KEY) {
-    const marketService = new MarketService(process.env.COINGECKO_API_KEY);
-    
-    // 定时任务（每小时运行）
-    setInterval(() => {
-        marketService.updateTokenPrices()
-            .catch(e => console.error('Scheduled price update failed:', e));
-    }, 3600000);
-    
-    // 立即执行一次
-    marketService.updateTokenPrices();
-} else {
-    console.warn('CoinGecko API key not set. Market data service disabled.');
-}
+const marketService = new MarketService(process.env.COINGECKO_API_KEY);
+
+// 定时任务（每小时运行）
+setInterval(() => {
+    marketService.updateTokenPrices()
+        .catch(e => console.error('定时价格更新失败:', e));
+}, 3600000); // 1小时
+
+// 立即执行一次
+marketService.updateTokenPrices();
+
+module.exports = marketService;
