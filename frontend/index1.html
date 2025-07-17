@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MultiDEX - 多语言去中心化交易所</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <i class="fas fa-coins"></i>
+                    <span>MultiDEX</span>
+                </div>
+                
+                <div class="controls">
+                    <select class="language-selector" id="languageSelector">
+                        <option value="en">English</option>
+                        <option value="de">Deutsch</option>
+                        <option value="fr">Français</option>
+                        <option value="ko">한국어</option>
+                        <option value="ja">日本語</option>
+                        <option value="zh-TW">繁體中文</option>
+                    </select>
+                    
+                    <button class="wallet-btn" id="connectWallet">
+                        <i class="fas fa-wallet"></i> <span id="walletText">Connect Wallet</span>
+                    </button>
+                </div>
+            </div>
+            
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#dashboard" class="active" data-section="dashboard">Dashboard</a></li>
+                    <li><a href="#trade" data-section="trade">Trade</a></li>
+                    <li><a href="#liquidity">Liquidity</a></li>
+                    <li><a href="#bridge">Bridge</a></li>
+                    <li><a href="#airdrop">Airdrop</a></li>
+                    <li><a href="#history">History</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- 主要内容区 -->
+    <main class="container">
+        <!-- 仪表盘部分 -->
+        <section class="card" id="dashboard">
+            <h2 class="section-title">
+                <i class="fas fa-chart-pie"></i>
+                <span data-translate="asset_dashboard">Asset Dashboard</span>
+            </h2>
+            
+            <div class="dashboard-grid">
+                <!-- 资产卡片 -->
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-wallet"></i> <span data-translate="total_assets">Total Assets</span></h3>
+                    <div class="dashboard-value">$24,563.89</div>
+                    <div class="dashboard-change positive">+2.4%</div>
+                </div>
+                
+                <!-- 其他卡片 -->
+                <!-- 内容省略以节省空间 -->
+            </div>
+            
+            <!-- 图表容器 -->
+            <div class="chart-container mt-4">
+                <div class="chart-header">
+                    <h3><i class="fas fa-chart-line"></i> <span data-translate="asset_distribution">Asset Distribution</span></h3>
+                    <div class="chart-legend">
+                        <div><span class="legend eth"></span> Ethereum</div>
+                        <div><span class="legend bsc"></span> BSC</div>
+                        <div><span class="legend poly"></span> Polygon</div>
+                        <div><span class="legend sol"></span> Solana</div>
+                    </div>
+                </div>
+                <div class="asset-chart">
+                    <div class="chart-bar" style="width: 45%; background: #627eea;">45%</div>
+                    <div class="chart-bar" style="width: 30%; background: #f0b90b;">30%</div>
+                    <div class="chart-bar" style="width: 15%; background: #8247e5;">15%</div>
+                    <div class="chart-bar" style="width: 10%; background: #00f2fe;">10%</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 交易部分 -->
+        <section class="card" id="trade">
+            <!-- 内容省略以节省空间 -->
+        </section>
+        
+        <!-- 流动性部分 -->
+        <section class="card" id="liquidity">
+            <!-- 内容省略以节省空间 -->
+        </section>
+        
+        <!-- 跨链桥部分 -->
+        <section class="card" id="bridge">
+            <!-- 内容省略以节省空间 -->
+        </section>
+        
+        <!-- 空投部分 -->
+        <section class="card" id="airdrop">
+            <!-- 内容省略以节省空间 -->
+        </section>
+        
+        <!-- 历史记录部分 -->
+        <section class="card" id="history">
+            <!-- 内容省略以节省空间 -->
+        </section>
+    </main>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <!-- 页脚内容省略以节省空间 -->
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 MultiDEX. <span data-translate="all_rights">All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- 管理按钮 -->
+    <div class="admin-btn" id="adminButton">
+        <i class="fas fa-cog"></i>
+    </div>
+    
+    <!-- 管理登录模态框 -->
+    <div class="modal fade" id="adminLoginModal" tabindex="-1" aria-hidden="true">
+        <!-- 内容省略以节省空间 -->
+    </div>
+    
+    <!-- 脚本引入 -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/wallet.js"></script>
+    <script src="js/dex.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

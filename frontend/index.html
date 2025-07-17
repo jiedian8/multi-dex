@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MultiDEX - 多语言去中心化交易所</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <i class="fas fa-coins"></i>
+                    <span>MultiDEX</span>
+                </div>
+                
+                <div class="controls">
+                    <select class="language-selector" id="languageSelector">
+                        <option value="en">English</option>
+                        <option value="de">Deutsch</option>
+                        <option value="fr">Français</option>
+                        <option value="ko">한국어</option>
+                        <option value="ja">日本語</option>
+                        <option value="zh-TW">繁體中文</option>
+                    </select>
+                    
+                    <button class="wallet-btn" id="connectWallet">
+                        <i class="fas fa-wallet"></i> <span id="walletText">Connect Wallet</span>
+                    </button>
+                </div>
+            </div>
+            
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#dashboard" class="active" data-section="dashboard">Dashboard</a></li>
+                    <li><a href="#trade" data-section="trade">Trade</a></li>
+                    <li><a href="#liquidity">Liquidity</a></li>
+                    <li><a href="#bridge">Bridge</a></li>
+                    <li><a href="#airdrop">Airdrop</a></li>
+                    <li><a href="#history">History</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- Dashboard Section -->
+        <section class="card" id="dashboard">
+            <h2 class="section-title">
+                <i class="fas fa-chart-pie"></i>
+                <span data-translate="asset_dashboard">Asset Dashboard</span>
+            </h2>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-wallet"></i> <span data-translate="total_assets">Total Assets</span></h3>
+                    <div class="dashboard-value">$24,563.89</div>
+                    <div class="dashboard-change positive">+2.4%</div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-coins"></i> <span data-translate="liquidity_mining">Liquidity Mining</span></h3>
+                    <div class="dashboard-value">$8,420.50</div>
+                    <div class="dashboard-subtext">APY: 24.5%</div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-exchange-alt"></i> <span data-translate="trading_fees">Trading Fees</span></h3>
+                    <div class="dashboard-value">$342.80</div>
+                    <div class="dashboard-subtext" data-translate="last_30_days">Last 30 days</div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-shield-alt"></i> <span data-translate="security">Security</span></h3>
+                    <div class="security-status safe">
+                        <i class="fas fa-check-circle"></i> <span data-translate="all_secure">All Systems Secure</span>
+                    </div>
+                    <div class="security-alert">
+                        <i class="fas fa-exclamation-triangle"></i> 
+                        <span data-translate="contract_warning">Unaudited contract detected</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-container mt-4">
+                <div class="chart-header">
+                    <h3><i class="fas fa-chart-line"></i> <span data-translate="asset_distribution">Asset Distribution</span></h3>
+                    <div class="chart-legend">
+                        <div><span class="legend eth"></span> Ethereum</div>
+                        <div><span class="legend bsc"></span> BSC</div>
+                        <div><span class="legend poly"></span> Polygon</div>
+                        <div><span class="legend sol"></span> Solana</div>
+                    </div>
+                </div>
+                <div class="asset-chart">
+                    <div class="chart-bar" style="width: 45%; background: #627eea;">45%</div>
+                    <div class="chart-bar" style="width: 30%; background: #f0b90b;">30%</div>
+                    <div class="chart-bar" style="width: 15%; background: #8247e5;">15%</div>
+                    <div class="chart-bar" style="width: 10%; background: #00f2fe;">10%</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Trade Section -->
+        <section class="card" id="trade">
+            <h2 class="section-title">
+                <i class="fas fa-exchange-alt"></i>
+                <span data-translate="trade">Trade</span>
+            </h2>
+            
+            <div class="trade-modes">
+                <button class="trade-mode active" data-mode="swap">
+                    <i class="fas fa-sync-alt"></i> <span data-translate="swap">Swap</span>
+                </button>
+                <button class="trade-mode" data-mode="limit">
+                    <i class="fas fa-file-invoice-dollar"></i> <span data-translate="limit_order">Limit Order</span>
+                </button>
+                <button class="trade-mode" data-mode="perpetual">
+                    <i class="fas fa-chart-line"></i> <span data-translate="perpetual">Perpetual</span>
+                </button>
+            </div>
+            
+            <div class="trade-container">
+                <!-- Swap Mode -->
+                <div class="trade-mode-content active" id="swapMode">
+                    <div class="swap-container">
+                        <div class="swap-input">
+                            <div class="input-header">
+                                <span data-translate="from">From</span>
+                                <span data-translate="balance">Balance: 1.245 ETH</span>
+                            </div>
+                            <div class="input-group">
+                                <input type="number" value="0.1" placeholder="0.0">
+                                <div class="token-selector">
+                                    <img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="ETH" width="24">
+                                    <span>ETH</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="swap-divider">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        
+                        <div class="swap-input">
+                            <div class="input-header">
+                                <span data-translate="to">To</span>
+                                <span data-translate="estimated">Estimated</span>
+                            </div>
+                            <div class="input-group">
+                                <input type="number" value="324.50" placeholder="0.0" readonly>
+                                <div class="token-selector">
+                                    <img src="https://assets.coingecko.com/coins/images/325/large/Tether.png" alt="USDT" width="24">
+                                    <span>USDT</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="swap-info">
+                            <div>
+                                <span data-translate="price">Price</span>
+                                <span>1 ETH = 3,245 USDT</span>
+                            </div>
+                            <div>
+                                <span data-translate="slippage">Slippage</span>
+                                <span>0.5%</span>
+                            </div>
+                            <div>
+                                <span data-translate="gas">Gas</span>
+                                <span>$8.42</span>
+                            </div>
+                        </div>
+                        
+                        <button class="swap-btn">
+                            <i class="fas fa-lock"></i> <span data-translate="swap_now">Swap Now</span>
+                        </button>
+                    </div>
+                    
+                    <div class="trade-advanced">
+                        <h4><i class="fas fa-cog"></i> <span data-translate="advanced_settings">Advanced Settings</span></h4>
+                        <div class="settings-grid">
+                            <div>
+                                <label data-translate="slippage_tolerance">Slippage Tolerance</label>
+                                <div class="slippage-options">
+                                    <button class="active">0.5%</button>
+                                    <button>1%</button>
+                                    <button>2%</button>
+                                    <input type="number" placeholder="Custom" value="0.5">%
+                                </div>
+                            </div>
+                            <div>
+                                <label data-translate="transaction_deadline">Transaction Deadline</label>
+                                <div class="deadline-input">
+                                    <input type="number" value="20"> <span data-translate="minutes">minutes</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label data-translate="routing">Routing</label>
+                                <div class="routing-options">
+                                    <div>
+                                        <input type="checkbox" id="optimizeRoute" checked>
+                                        <label for="optimizeRoute" data-translate="optimize_route">Optimize Route</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="splitRoute" checked>
+                                        <label for="splitRoute" data-translate="split_routes">Split Routes</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Limit Order Mode -->
+                <div class="trade-mode-content" id="limitMode">
+                    <div class="order-book-container">
+                        <div class="order-book">
+                            <div class="order-book-header">
+                                <h4 data-translate="order_book">Order Book</h4>
+                                <span>ETH/USDT</span>
+                            </div>
+                            <div class="order-book-body">
+                                <div class="order-book-asks">
+                                    <div class="order-row">
+                                        <span>3,252.40</span>
+                                        <span>0.85</span>
+                                        <span>$2,764.54</span>
+                                    </div>
+                                    <div class="order-row">
+                                        <span>3,251.20</span>
+                                        <span>1.25</span>
+                                        <span>$4,064.00</span>
+                                    </div>
+                                    <div class="order-row">
+                                        <span>3,250.50</span>
+                                        <span>0.95</span>
+                                        <span>$3,087.75</span>
+                                    </div>
+                                </div>
+                                <div class="order-book-spread">
+                                    <span data-translate="spread">Spread</span>: $3.50 (0.11%)
+                                </div>
+                                <div class="order-book-bids">
+                                    <div class="order-row">
+                                        <span>3,248.90</span>
+                                        <span>2.10</span>
+                                        <span>$6,822.69</span>
+                                    </div>
+                                    <div class="order-row">
+                                        <span>3,247.50</span>
+                                        <span>1.50</span>
+                                        <span>$4,871.25</span>
+                                    </div>
+                                    <div class="order-row">
+                                        <span>3,246.20</span>
+                                        <span>0.75</span>
+                                        <span>$2,434.65</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="depth-chart">
+                            <canvas id="depthChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="limit-order-form">
+                        <div class="form-row">
+                            <div>
+                                <label data-translate="order_type">Order Type</label>
+                                <select>
+                                    <option data-translate="buy">Buy</option>
+                                    <option data-translate="sell">Sell</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label data-translate="amount">Amount</label>
+                                <input type="number" placeholder="0.0">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div>
+                                <label data-translate="price">Price</label>
+                                <input type="number" placeholder="0.0">
+                            </div>
+                            <div>
+                                <label data-translate="total">Total</label>
+                                <input type="number" placeholder="0.0" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div>
+                                <label data-translate="expiration">Expiration</label>
+                                <select>
+                                    <option data-translate="gtc">Good Till Cancelled (GTC)</option>
+                                    <option data-translate="ioc">Immediate Or Cancel (IOC)</option>
+                                    <option data-translate="fok">Fill Or Kill (FOK)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>&nbsp;</label>
+                                <button class="place-order-btn">
+                                    <i class="fas fa-file-invoice-dollar"></i> <span data-translate="place_order">Place Order</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Perpetual Mode -->
+                <div class="trade-mode-content" id="perpetualMode">
+                    <div class="perpetual-header">
+                        <div class="pair-selector">
+                            <span>BTC/USDT</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="perpetual-stats">
+                            <div>
+                                <span data-translate="index_price">Index Price</span>
+                                <span>$62,380.50</span>
+                            </div>
+                            <div>
+                                <span data-translate="24h_change">24h Change</span>
+                                <span class="positive">+2.50%</span>
+                            </div>
+                            <div>
+                                <span data-translate="funding_rate">Funding Rate</span>
+                                <span>0.0025%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="perpetual-chart">
+                        <canvas id="priceChart"></canvas>
+                    </div>
+                    
+                    <div class="perpetual-controls">
+                        <div class="leverage-selector">
+                            <span data-translate="leverage">Leverage</span>
+                            <div class="leverage-options">
+                                <button>1x</button>
+                                <button>5x</button>
+                                <button class="active">10x</button>
+                                <button>25x</button>
+                                <button>50x</button>
+                                <input type="number" value="10" min="1" max="50">x
+                            </div>
+                        </div>
+                        
+                        <div class="position-controls">
+                            <div class="position-input buy">
+                                <label data-translate="buy">Buy</label>
+                                <input type="number" placeholder="Price">
+                                <input type="number" placeholder="Amount">
+                                <button class="buy-btn">
+                                    <i class="fas fa-arrow-up"></i> <span data-translate="buy">Buy</span> BTC
+                                </button>
+                            </div>
+                            
+                            <div class="position-input sell">
+                                <label data-translate="sell">Sell</label>
+                                <input type="number" placeholder="Price">
+                                <input type="number" placeholder="Amount">
+                                <button class="sell-btn">
+                                    <i class="fas fa-arrow-down"></i> <span data-translate="sell">Sell</span> BTC
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Liquidity Section -->
+        <section class="card" id="liquidity">
+            <h2 class="section-title">
+                <i class="fas fa-water"></i>
+                <span data-translate="liquidity_pools">Liquidity Pools</span>
+            </h2>
+            
+            <div class="liquidity-header">
+                <div class="stats">
+                    <div>
+                        <span data-translate="total_liquidity">Total Liquidity</span>
+                        <span>$124.5M</span>
+                    </div>
+                    <div>
+                        <span data-translate="24h_volume">24h Volume</span>
+                        <span>$42.8M</span>
+                    </div>
+                    <div>
+                        <span data-translate="24h_fees">24h Fees</span>
+                        <span>$128,400</span>
+                    </div>
+                </div>
+                <button class="add-liquidity-btn">
+                    <i class="fas fa-plus-circle"></i> <span data-translate="add_liquidity">Add Liquidity</span>
+                </button>
+            </div>
+            
+            <div class="pools-container">
+                <div class="pool-card">
+                    <div class="pool-header">
+                        <div class="pool-tokens">
+                            <img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="ETH">
+                            <img src="https://assets.coingecko.com/coins/images/325/large/Tether.png" alt="USDT">
+                        </div>
+                        <div class="pool-name">ETH/USDT</div>
+                        <div class="pool-apy">24.5% APY</div>
+                    </div>
+                    
+                    <div class="pool-stats">
+                        <div>
+                            <span data-translate="liquidity">Liquidity</span>
+                            <span>$42.8M</span>
+                        </div>
+                        <div>
+                            <span data-translate="volume">Volume (24h)</span>
+                            <span>$18.2M</span>
+                        </div>
+                        <div>
+                            <span data-translate="fees">Fees (24h)</span>
+                            <span>$54,600</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pool-actions">
+                        <button class="pool-action">
+                            <i class="fas fa-plus"></i> <span data-translate="add">Add</span>
+                        </button>
+                        <button class="pool-action">
+                            <i class="fas fa-minus"></i> <span data-translate="remove">Remove</span>
+                        </button>
+                        <button class="pool-action">
+                            <i class="fas fa-lock"></i> <span data-translate="stake">Stake</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="pool-card">
+                    <div class="pool-header">
+                        <div class="pool-tokens">
+                            <img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" alt="BTC">
+                            <img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="ETH">
+                        </div>
+                        <div class="pool-name">BTC/ETH</div>
+                        <div class="pool-apy">18.2% APY</div>
+                    </div>
+                    
+                    <div class="pool-stats">
+                        <div>
+                            <span data-translate="liquidity">Liquidity</span>
+                            <span>$36.4M</span>
+                        </div>
+                        <div>
+                            <span data-translate="volume">Volume (24h)</span>
+                            <span>$12.5M</span>
+                        </div>
+                        <div>
+                            <span data-translate="fees">Fees (24h)</span>
+                            <span>$37,500</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pool-actions">
+                        <button class="pool-action">
+                            <i class="fas fa-plus"></i> <span data-translate="add">Add</span>
+                        </button>
+                        <button class="pool-action">
+                            <i class="fas fa-minus"></i> <span data-translate="remove">Remove</span>
+                        </button>
+                        <button class="pool-action">
+                            <i class="fas fa-lock"></i> <span data-translate="stake">Stake</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="pool-card">
+                    <div class="pool-header">
+                        <div class="pool-tokens">
+                            <img src="https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png" alt="BNB">
+                            <img src="https://assets.coingecko.com/coins/images/325/large/Tether.png" alt="USDT">
+                        </div>
+                        <div class="pool-name">BNB/USDT</div>
+                        <div class="pool-apy">15.7% APY</div>
+                    </div>
+                    
+                    <div class="pool-stats">
+                        <div>
+                            <span data-translate="liquidity">Liquidity</span>
+                            <span>$28.3M</span>
+                        </div>
+                        <div>
+                            <span data-translate="volume">Volume (24h)</span>
+                            <span>$9.8M</span>
+                        </div>
+                        <div>
+                            <span data-translate="fees">Fees (24h)</span>
+                            <span>$29,400</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pool-actions">
+                        <button class="pool-action">
+                            <i class="fas fa-plus"></i> <span data-translate="add">Add</span>
+                        </button>
+                        <button class="pool-action">
+                            <i class="fas fa-minus"></i> <span data-translate="remove">Remove</span>
+                        </button>
+                        <button class="pool-action">
+                            <i class="fas fa-lock"></i> <span data-translate="stake">Stake</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="il-simulator">
+                <h3><i class="fas fa-calculator"></i> <span data-translate="il_simulator">Impermanent Loss Simulator</span></h3>
+                <div class="simulator-container">
+                    <div class="simulator-inputs">
+                        <div class="input-group">
+                            <label data-translate="price_change">Price Change (%)</label>
+                            <input type="range" min="-100" max="100" value="0" step="5">
+                            <span class="value">0%</span>
+                        </div>
+                        <div class="input-group">
+                            <label data-translate="initial_price">Initial Price Ratio</label>
+                            <input type="text" value="1.0" readonly>
+                        </div>
+                        <div class="input-group">
+                            <label data-translate="il_result">IL Result</label>
+                            <input type="text" value="0.0%" readonly>
+                        </div>
+                    </div>
+                    <div class="simulator-chart">
+                        <canvas id="ilChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Bridge Section -->
+        <section class="card" id="bridge">
+            <h2 class="section-title">
+                <i class="fas fa-link"></i>
+                <span data-translate="cross_chain_bridge">Cross-Chain Bridge</span>
+            </h2>
+            
+            <div class="bridge-container">
+                <div class="bridge-controls">
+                    <div class="chain-selector from-chain">
+                        <div class="chain-logo">
+                            <img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="Ethereum">
+                        </div>
+                        <div class="chain-info">
+                            <span data-translate="from">From</span>
+                            <select>
+                                <option value="eth">Ethereum</option>
+                                <option value="bsc">Binance Smart Chain</option>
+                                <option value="poly">Polygon</option>
+                                <option value="sol">Solana</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="bridge-arrow">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    
+                    <div class="chain-selector to-chain">
+                        <div class="chain-logo">
+                            <img src="https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png" alt="BSC">
+                        </div>
+                        <div class="chain-info">
+                            <span data-translate="to">To</span>
+                            <select>
+                                <option value="bsc">Binance Smart Chain</option>
+                                <option value="eth">Ethereum</option>
+                                <option value="poly">Polygon</option>
+                                <option value="sol">Solana</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bridge-asset">
+                    <div class="asset-input">
+                        <div class="input-header">
+                            <span data-translate="amount">Amount</span>
+                            <span data-translate="balance">Balance: 1.245 ETH</span>
+                        </div>
+                        <div class="input-group">
+                            <input type="number" value="0.1" placeholder="0.0">
+                            <div class="token-selector">
+                                <img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="ETH" width="24">
+                                <span>ETH</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bridge-info">
+                        <div>
+                            <span data-translate="min_receive">Min. Receive</span>
+                            <span>0.099 ETH</span>
+                        </div>
+                        <div>
+                            <span data-translate="bridge_fee">Bridge Fee</span>
+                            <span>0.001 ETH</span>
+                        </div>
+                        <div>
+                            <span data-translate="estimated_time">Estimated Time</span>
+                            <span>8-12 min</span>
+                        </div>
+                    </div>
+                    
+                    <button class="bridge-btn">
+                        <i class="fas fa-link"></i> <span data-translate="start_bridge">Start Bridge</span>
+                    </button>
+                </div>
+                
+                <div class="bridge-options">
+                    <h4><i class="fas fa-cogs"></i> <span data-translate="bridge_options">Bridge Options</span></h4>
+                    <div class="bridge-methods">
+                        <div class="bridge-method active">
+                            <div class="method-name">Atomic Swap</div>
+                            <div class="method-desc" data-translate="atomic_swap_desc">Instant cross-chain swaps with no intermediaries</div>
+                        </div>
+                        <div class="bridge-method">
+                            <div class="method-name">Multichain Bridge</div>
+                            <div class="method-desc" data-translate="multichain_desc">Secure custodial bridge with lower fees</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- History Section -->
+        <section class="card" id="history">
+            <h2 class="section-title">
+                <i class="fas fa-history"></i>
+                <span data-translate="transaction_history">Transaction History</span>
+            </h2>
+            
+            <div class="history-filters">
+                <div class="filter-group">
+                    <label data-translate="filter_by">Filter by:</label>
+                    <select id="historyType">
+                        <option value="all" data-translate="all">All</option>
+                        <option value="swap" data-translate="swaps">Swaps</option>
+                        <option value="limit" data-translate="limit_orders">Limit Orders</option>
+                        <option value="liquidity" data-translate="liquidity">Liquidity</option>
+                        <option value="bridge" data-translate="bridge">Bridge</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label data-translate="time_period">Time Period:</label>
+                    <select id="timePeriod">
+                        <option value="7" data-translate="last_7_days">Last 7 Days</option>
+                        <option value="30" data-translate="last_30_days">Last 30 Days</option>
+                        <option value="90" data-translate="last_90_days">Last 90 Days</option>
+                        <option value="all" selected data-translate="all_time">All Time</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label data-translate="search">Search:</label>
+                    <input type="text" placeholder="Token, address...">
+                </div>
+            </div>
+            
+            <div class="history-table-container">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th data-translate="type">Type</th>
+                            <th data-translate="assets">Assets</th>
+                            <th data-translate="amount">Amount</th>
+                            <th data-translate="status">Status</th>
+                            <th data-translate="time">Time</th>
+                            <th data-translate="action">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge swap">Swap</span></td>
+                            <td>
+                                <div class="asset-pair">
+                                    <img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="ETH" width="20">
+                                    <span>ETH</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                    <img src="https://assets.coingecko.com/coins/images/325/large/Tether.png" alt="USDT" width="20">
+                                    <span>USDT</span>
+                                </div>
+                            </td>
+                            <td>0.1 ETH → 324.50 USDT</td>
+                            <td><span class="status completed">Completed</span></td>
+                            <td>2023-10-15 14:32:18</td>
+                            <td><a href="#" class="explorer-link">View</a></td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge liquidity">Liquidity</span></td>
+                            <td>
+                                <div class="asset-pair">
+                                    <img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="ETH" width="20">
+                                    <span>ETH</span>
+                                    <span>+</span>
+                                    <img src="https://assets.coingecko.com/coins/images/325/large/Tether.png" alt="USDT" width="20">
+                                    <span>USDT</span>
+                                </div>
+                            </td>
+                            <td>Added 0.5 ETH + 1,625 USDT</td>
+                            <td><span class="status completed">Completed</span></td>
+                            <td>2023-10-14 09:15:42</td>
+                            <td><a href="#" class="explorer-link">View</a></td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge bridge">Bridge</span></td>
+                            <td>
+                                <div class="asset-pair">
+                                    <img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="ETH" width="20">
+                                    <span>ETH</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                    <img src="https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png" alt="BNB" width="20">
+                                    <span>BNB</span>
+                                </div>
+                            </td>
+                            <td>0.3 ETH → 0.297 BNB</td>
+                            <td><span class="status pending">Pending</span></td>
+                            <td>2023-10-13 17:24:56</td>
+                            <td><a href="#" class="explorer-link">View</a></td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge limit">Limit Order</span></td>
+                            <td>
+                                <div class="asset-pair">
+                                    <img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" alt="BTC" width="20">
+                                    <span>BTC</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                    <img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="ETH" width="20">
+                                    <span>ETH</span>
+                                </div>
+                            </td>
+                            <td>Buy 0.1 BTC @ 16.5 ETH</td>
+                            <td><span class="status open">Open</span></td>
+                            <td>2023-10-12 11:43:27</td>
+                            <td><a href="#" class="explorer-link">View</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="history-pagination">
+                <button class="page-btn disabled">&laquo;</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <span class="page-ellipsis">...</span>
+                <button class="page-btn">10</button>
+                <button class="page-btn">&raquo;</button>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>MultiDEX</h3>
+                    <p data-translate="footer_desc">The leading multi-chain decentralized exchange with advanced trading features and deep liquidity.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 data-translate="products">Products</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-exchange-alt"></i> <span data-translate="exchange">Exchange</span></a></li>
+                        <li><a href="#"><i class="fas fa-water"></i> <span data-translate="liquidity_pools">Liquidity Pools</span></a></li>
+                        <li><a href="#"><i class="fas fa-lock"></i> <span data-translate="staking">Staking</span></a></li>
+                        <li><a href="#"><i class="fas fa-gift"></i> <span data-translate="airdrops">Airdrops</span></a></li>
+                        <li><a href="#"><i class="fas fa-shopping-cart"></i> <span data-translate="preorder">Pre-order</span></a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 data-translate="resources">Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-book"></i> <span data-translate="whitepaper">Whitepaper</span></a></li>
+                        <li><a href="#"><i class="fas fa-file-alt"></i> <span data-translate="documentation">Documentation</span></a></li>
+                        <li><a href="#"><i class="fas fa-graduation-cap"></i> <span data-translate="tutorials">Tutorials</span></a></li>
+                        <li><a href="#"><i class="fas fa-blog"></i> <span data-translate="blog">Blog</span></a></li>
+                        <li><a href="#"><i class="fas fa-code"></i> <span data-translate="api">API</span></a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 data-translate="support">Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-question-circle"></i> <span data-translate="help_center">Help Center</span></a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> <span data-translate="contact_us">Contact Us</span></a></li>
+                        <li><a href="#"><i class="fas fa-users"></i> <span data-translate="community">Community</span></a></li>
+                        <li><a href="#"><i class="fas fa-server"></i> <span data-translate="status">Status</span></a></li>
+                        <li><a href="#"><i class="fas fa-comments"></i> <span data-translate="faq">FAQ</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 MultiDEX. <span data-translate="all_rights">All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- 管理后台按钮 -->
+    <div class="admin-btn" id="adminButton">
+        <i class="fas fa-cog"></i>
+    </div>
+    
+    <!-- Admin Login Modal -->
+    <div class="modal fade" id="adminLoginModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" data-translate="admin_login">Admin Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="adminLoginForm">
+                        <div class="mb-3">
+                            <label for="adminUsername" class="form-label" data-translate="username">Username</label>
+                            <input type="text" class="form-control" id="adminUsername" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="adminPassword" class="form-label" data-translate="password">Password</label>
+                            <input type="password" class="form-control" id="adminPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100" data-translate="login">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/wallet.js"></script>
+    <script src="js/dex.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

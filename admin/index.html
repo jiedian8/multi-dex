@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MultiDEX Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <!-- Admin Header -->
+    <nav class="admin-navbar">
+        <div class="container">
+            <div class="admin-brand">
+                <i class="fas fa-cog"></i>
+                <span>MultiDEX Admin</span>
+            </div>
+            <div class="admin-controls">
+                <div class="admin-user">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User" alt="Admin">
+                    <span>admin@multidex.com</span>
+                </div>
+                <button class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Admin Sidebar -->
+    <div class="admin-container">
+        <div class="admin-sidebar">
+            <ul class="admin-menu">
+                <li class="active">
+                    <a href="#dashboard">
+                        <i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#liquidity">
+                        <i class="fas fa-water"></i> <span>Liquidity</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#tokens">
+                        <i class="fas fa-coins"></i> <span>Token Management</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#risk">
+                        <i class="fas fa-shield-alt"></i> <span>Risk Control</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#governance">
+                        <i class="fas fa-vote-yea"></i> <span>Governance</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#analytics">
+                        <i class="fas fa-chart-bar"></i> <span>Analytics</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#users">
+                        <i class="fas fa-users"></i> <span>User Management</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#settings">
+                        <i class="fas fa-cog"></i> <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Admin Content -->
+        <div class="admin-content">
+            <!-- Dashboard Page -->
+            <div class="admin-page active" id="dashboardPage">
+                <div class="admin-page-header">
+                    <h1><i class="fas fa-tachometer-alt"></i> Dashboard</h1>
+                    <div class="date-filter">
+                        <select>
+                            <option>Last 24 hours</option>
+                            <option>Last 7 days</option>
+                            <option>Last 30 days</option>
+                            <option selected>Last 90 days</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value">$124.5M</div>
+                            <div class="stat-label">Total Value Locked (TVL)</div>
+                            <div class="stat-change positive">+5.2%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value">$42.8M</div>
+                            <div class="stat-label">24h Volume</div>
+                            <div class="stat-change positive">+12.7%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value">24,583</div>
+                            <div class="stat-label">Active Users</div>
+                            <div class="stat-change positive">+8.4%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Risk Alerts</div>
+                            <div class="stat-change negative">+2</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-charts">
+                    <div class="chart-container">
+                        <h3>TVL by Chain</h3>
+                        <canvas id="tvlChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Volume Trend (7 days)</h3>
+                        <canvas id="volumeChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="grid-item">
+                        <h3>Liquidity Pool Distribution</h3>
+                        <canvas id="poolChart"></canvas>
+                    </div>
+                    <div class="grid-item">
+                        <h3>User Activity</h3>
+                        <div class="activity-map">
+                            <div class="map-header">
+                                <span>Top Countries</span>
+                                <span>Users</span>
+                            </div>
+                            <div class="map-row">
+                                <div>United States</div>
+                                <div class="map-bar" style="width: 65%;">6,324</div>
+                            </div>
+                            <div class="map-row">
+                                <div>South Korea</div>
+                                <div class="map-bar" style="width: 48%;">4,812</div>
+                            </div>
+                            <div class="map-row">
+                                <div>Germany</div>
+                                <div class="map-bar" style="width: 32%;">3,215</div>
+                            </div>
+                            <div class="map-row">
+                                <div>Japan</div>
+                                <div class="map-bar" style="width: 28%;">2,876</div>
+                            </div>
+                            <div class="map-row">
+                                <div>United Kingdom</div>
+                                <div class="map-bar" style="width: 25%;">2,432</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Token Management Page -->
+            <div class="admin-page" id="tokensPage">
+                <div class="admin-page-header">
+                    <h1><i class="fas fa-coins"></i> Token Management</h1>
+                    <button class="btn btn-primary" id="addTokenBtn">
+                        <i class="fas fa-plus"></i> Add Token
+                    </button>
+                </div>
+                
+                <div class="token-filters">
+                    <div class="filter-group">
+                        <label>Status:</label>
+                        <select>
+                            <option>All</option>
+                            <option selected>Active</option>
+                            <option>Inactive</option>
+                            <option>Pending</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Chain:</label>
+                        <select>
+                            <option>All Chains</option>
+                            <option>Ethereum</option>
+                            <option>BSC</option>
+                            <option>Polygon</option>
+                            <option>Solana</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Search:</label>
+                        <input type="text" placeholder="Token name or symbol...">
+                    </div>
+                </div>
+                
+                <div class="token-table-container">
+                    <table class="token-table">
+                        <thead>
+                            <tr>
+                                <th>Token</th>
+                                <th>Symbol</th>
+                                <th>Chain</th>
+                                <th>Contract</th>
+                                <th>Liquidity</th>
+                                <th>Volume (24h)</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="token-info">
+                                        <img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" alt="BTC">
+                                        <span>Bitcoin</span>
+                                    </div>
+                                </td>
+                                <td>BTC</td>
+                                <td>Ethereum</td>
+                                <td class="contract">0x2260FAC...7157D</td>
+                                <td>$42.5M</td>
+                                <td>$18.2M</td>
+                                <td><span class="status-badge active">Active</span></td>
+                                <td>
+                                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                    <button class="action-btn deactivate"><i class="fas fa-ban"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="token-info">
+                                        <img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="ETH">
+                                        <span>Ethereum</span>
+                                    </div>
+                                </td>
+                                <td>ETH</td>
+                                <td>Ethereum</td>
+                                <td class="contract">Native</td>
+                                <td>$68.2M</td>
+                                <td>$32.5M</td>
+                                <td><span class="status-badge active">Active</span></td>
+                                <td>
+                                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                    <button class="action-btn deactivate"><i class="fas fa-ban"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="token-info">
+                                        <img src="https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png" alt="BNB">
+                                        <span>Binance Coin</span>
+                                    </div>
+                                </td>
+                                <td>BNB</td>
+                                <td>BSC</td>
+                                <td class="contract">0xbb4CdB...61aA4</td>
+                                <td>$28.3M</td>
+                                <td>$9.8M</td>
+                                <td><span class="status-badge active">Active</span></td>
+                                <td>
+                                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                    <button class="action-btn deactivate"><i class="fas fa-ban"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="token-info">
+                                        <img src="https://assets.coingecko.com/coins/images/4128/large/solana.png" alt="SOL">
+                                        <span>Solana</span>
+                                    </div>
+                                </td>
+                                <td>SOL</td>
+                                <td>Solana</td>
+                                <td class="contract">Native</td>
+                                <td>$15.7M</td>
+                                <td>$5.2M</td>
+                                <td><span class="status-badge active">Active</span></td>
+                                <td>
+                                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                    <button class="action-btn deactivate"><i class="fas fa-ban"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="token-info">
+                                        <img src="https://assets.coingecko.com/coins/images/4713/large/matic-token-icon.png" alt="MATIC">
+                                        <span>Polygon</span>
+                                    </div>
+                                </td>
+                                <td>MATIC</td>
+                                <td>Polygon</td>
+                                <td class="contract">0x0000...1010</td>
+                                <td>$12.6M</td>
+                                <td>$4.3M</td>
+                                <td><span class="status-badge active">Active</span></td>
+                                <td>
+                                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                    <button class="action-btn deactivate"><i class="fas fa-ban"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="token-info">
+                                        <img src="https://assets.coingecko.com/coins/images/325/large/Tether.png" alt="USDT">
+                                        <span>Tether USD</span>
+                                    </div>
+                                </td>
+                                <td>USDT</td>
+                                <td>Multi-chain</td>
+                                <td class="contract">0xdAC17...8D2ee</td>
+                                <td>$96.4M</td>
+                                <td>$48.7M</td>
+                                <td><span class="status-badge active">Active</span></td>
+                                <td>
+                                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                    <button class="action-btn deactivate"><i class="fas fa-ban"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="table-footer">
+                    <div class="table-info">
+                        Showing 1 to 6 of 26 tokens
+                    </div>
+                    <div class="table-pagination">
+                        <button class="page-btn disabled"><i class="fas fa-chevron-left"></i></button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn">4</button>
+                        <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Risk Control Page -->
+            <div class="admin-page" id="riskPage">
+                <div class="admin-page-header">
+                    <h1><i class="fas fa-shield-alt"></i> Risk Control</h1>
+                    <div class="risk-alerts">
+                        <span class="alert-count">3</span>
+                        <i class="fas fa-bell"></i>
+                    </div>
+                </div>
+                
+                <div class="risk-overview">
+                    <div class="risk-card critical">
+                        <div class="risk-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="risk-info">
+                            <div class="risk-value">2</div>
+                            <div class="risk-label">Flash Loan Alerts</div>
+                        </div>
+                    </div>
+                    
+                    <div class="risk-card high">
+                        <div class="risk-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="risk-info">
+                            <div class="risk-value">5</div>
+                            <div class="risk-label">Slippage Alerts</div>
+                        </div>
+                    </div>
+                    
+                    <div class="risk-card medium">
+                        <div class="risk-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="risk-info">
+                            <div class="risk-value">12</div>
+                            <div class="risk-label">MEV Bot Detections</div>
+                        </div>
+                    </div>
+                    
+                    <div class="risk-card low">
+                        <div class="risk-icon">
+                            <i class="fas fa-user-secret"></i>
+                        </div>
+                        <div class="risk-info">
+                            <div class="risk-value">8</div>
+                            <div class="risk-label">Suspicious Accounts</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="risk-dashboard">
+                    <div class="risk-transactions">
+                        <h3>Recent Suspicious Transactions</h3>
+                        <div class="transaction-list">
+                            <div class="transaction-item critical">
+                                <div class="transaction-info">
+                                    <div class="transaction-address">
+                                        <span>0x4aF3c...b8D2</span>
+                                        <span class="badge">Flash Loan</span>
+                                    </div>
+                                    <div class="transaction-detail">
+                                        $2.5M USDT → $1.8M ETH → $2.7M USDT
+                                    </div>
+                                    <div class="transaction-meta">
+                                        <span>ETH/USDT</span>
+                                        <span>5 min ago</span>
+                                    </div>
+                                </div>
+                                <div class="transaction-actions">
+                                    <button class="action-btn block"><i class="fas fa-ban"></i> Block</button>
+                                    <button class="action-btn investigate"><i class="fas fa-search"></i> Investigate</button>
+                                </div>
+                            </div>
+                            
+                            <div class="transaction-item high">
+                                <div class="transaction-info">
+                                    <div class="transaction-address">
+                                        <span>0x8bE6...f3A1</span>
+                                        <span class="badge">High Slippage</span>
+                                    </div>
+                                    <div class="transaction-detail">
+                                        Swap 50 BTC → ETH (12.5% slippage)
+                                    </div>
+                                    <div class="transaction-meta">
+                                        <span>BTC/ETH</span>
+                                        <span>18 min ago</span>
+                                    </div>
+                                </div>
+                                <div class="transaction-actions">
+                                    <button class="action-btn block"><i class="fas fa-ban"></i> Block</button>
+                                    <button class="action-btn investigate"><i class="fas fa-search"></i> Investigate</button>
+                                </div>
+                            </div>
+                            
+                            <div class="transaction-item medium">
+                                <div class="transaction-info">
+                                    <div class="transaction-address">
+                                        <span>0xdF23...9cB4</span>
+                                        <span class="badge">MEV Bot</span>
+                                    </div>
+                                    <div class="transaction-detail">
+                                        Front-run detected on ETH/USDT pair
+                                    </div>
+                                    <div class="transaction-meta">
+                                        <span>ETH/USDT</span>
+                                        <span>42 min ago</span>
+                                    </div>
+                                </div>
+                                <div class="transaction-actions">
+                                    <button class="action-btn monitor"><i class="fas fa-eye"></i> Monitor</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="risk-settings">
+                        <h3>Risk Parameters</h3>
+                        <div class="settings-form">
+                            <div class="form-group">
+                                <label>Max Slippage Tolerance</label>
+                                <div class="input-group">
+                                    <input type="number" value="5"> %
+                                    <div class="input-note">Transactions exceeding this will be flagged</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Flash Loan Threshold</label>
+                                <div class="input-group">
+                                    <input type="number" value="1000000"> USD
+                                    <div class="input-note">Amount that triggers alerts</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Auto Circuit Breaker</label>
+                                <div class="toggle-group">
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                    <span>Enabled</span>
+                                </div>
+                                <div class="input-note">Pauses trading during extreme volatility</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>MEV Bot Detection Sensitivity</label>
+                                <div class="sensitivity">
+                                    <span>Low</span>
+                                    <input type="range" min="1" max="10" value="7">
+                                    <span>High</span>
+                                </div>
+                            </div>
+                            
+                            <button class="save-settings">Save Settings</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
